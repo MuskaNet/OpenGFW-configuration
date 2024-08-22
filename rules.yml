@@ -1,19 +1,23 @@
-- name: block shadowsocks and vmess
+- name: Block ShadowSocks and Vmess
   action: block
   log: true
   expr: fet != nil && fet.yes
 
-- name: block trojan
+- name: Block Trojan
   action: block
   log: true
   expr: trojan != nil && trojan.yes
 
-- name: block socks
+- name: Block Socks
   action: block
   log: true
   expr: socks != nil && socks.yes
 
-- name: block SNI mismatch
+- name: Block SNI mismatch (Xray Reality/ShadowTLS)
   action: block
   log: true
   expr: tls?.req?.sni != nil && ip.dst not in concat(lookup(tls.req.sni, "1.1.1.1:53"), lookup(tls.req.sni, "8.8.8.8:53"))
+
+- name: Block OpenVPN
+  action: block
+  expr: openvpn != nil && openvpn.rx_pkt_cnt + openvpn.tx_pkt_cnt > 50
