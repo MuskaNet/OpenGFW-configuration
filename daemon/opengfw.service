@@ -1,0 +1,9 @@
+[Unit]
+Description=OpenGFW
+
+[Install]
+WantedBy=network.target
+
+[Service]
+ExecStart=/opt/opengfw/OpenGFW -c config.yml rules.yml
+WorkingDirectory=/opt/opengfw
