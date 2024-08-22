@@ -20,4 +20,5 @@
 
 - name: Block OpenVPN
   action: block
+  log: true
   expr: openvpn != nil && openvpn.rx_pkt_cnt + openvpn.tx_pkt_cnt > 50
