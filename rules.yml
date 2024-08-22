@@ -1,0 +1,19 @@
+- name: block shadowsocks and vmess
+  action: block
+  log: true
+  expr: fet != nil && fet.yes
+
+- name: block trojan
+  action: block
+  log: true
+  expr: trojan != nil && trojan.yes
+
+- name: block socks
+  action: block
+  log: true
+  expr: socks != nil && socks.yes
+
+- name: block SNI mismatch
+  action: block
+  log: true
+  expr: tls?.req?.sni != nil && ip.dst not in concat(lookup(tls.req.sni, "1.1.1.1:53"), lookup(tls.req.sni, "8.8.8.8:53"))
