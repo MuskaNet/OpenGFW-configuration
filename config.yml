@@ -1,0 +1,20 @@
+io:
+  queueSize: 1024
+  local: true
+
+workers:
+  count: 4
+  queueSize: 64
+  tcpMaxBufferedPagesTotal: 65536
+  tcpMaxBufferedPagesPerConn: 16
+  tcpTimeout: 10m
+  udpMaxStreams: 4096
+
+# The path to load specific local geoip/geosite db files.
+# If not set, they will be automatically downloaded from https://github.com/Loyalsoldier/v2ray-rules-dat
+# ruleset:
+#   geoip: geoip.dat
+#   geosite: geosite.dat
+
+#replay:
+#  realtime: false
