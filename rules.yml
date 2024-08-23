@@ -17,7 +17,7 @@
   action: block
   log: true
   # SNI 添加 cloudflare-dns.com 防止误伤 Cloudflare 代理模式
-  expr: 'tls?.req?.sni != nil && ip.dst not in concat("cloudflare-dns.com", lookup(tls.req.sni, "1.1.1.1:53"), lookup(tls.req.sni, "8.8.8.8:53"))'
+  expr: tls?.req?.sni != nil && tls?.req?.sni not in concat("cloudflare-dns.com") && ip.dst not in concat(lookup(tls.req.sni, "1.1.1.1:53"), lookup(tls.req.sni, "8.8.8.8:53"))
 
 - name: Block OpenVPN
   action: block
