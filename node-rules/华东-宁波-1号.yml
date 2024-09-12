@@ -25,7 +25,7 @@
   expr: |-
     let packet = 0;
     packet++;
-    (http?.req != nil || tls?.req != nil) && x >= 1220 
+    (http?.req != nil || tls?.req != nil) && packet >= 1220 
 
 - name: Block OpenVPN
   action: block
