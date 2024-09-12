@@ -7,3 +7,4 @@ WantedBy=network.target
 [Service]
 ExecStart=/opt/opengfw/OpenGFW -c config.yml rules.yml
 WorkingDirectory=/opt/opengfw
+Restart=always
