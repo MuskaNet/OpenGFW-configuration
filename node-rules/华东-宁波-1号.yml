@@ -1,33 +1,12 @@
-- name: Block ShadowSocks and Vmess
-  action: block
-  log: true
-  expr: fet != nil && fet.yes
-
-- name: Block Trojan
-  action: block
-  log: true
-  expr: trojan != nil && trojan.yes
-
-- name: Block Socks
-  action: block
-  log: true
-  expr: socks != nil && socks.yes
-
-- name: Block SNI mismatch (Xray Reality/ShadowTLS)
-  action: block
-  log: true
-  # SNI 添加 cloudflare-dns.com 防止误伤 Cloudflare 代理模式
-  expr: tls?.req?.sni != nil && tls?.req?.sni not in ["cloudflare-dns.com"] && ip.dst not in concat(lookup(tls.req.sni, "223.5.5.5:53"), lookup(tls.req.sni, "119.29.29.29:53"))
-
-- name: Limit PPS
+- name: Block Non-standard HTTP Traffic
   action: drop
-  log: false
-  expr: |-
-    let packet = 0;
-    packet++;
-    (http?.req != nil || tls?.req != nil) && packet >= 1220 
-
-- name: Block OpenVPN
-  action: block
   log: true
-  expr: openvpn != nil && openvpn.rx_pkt_cnt + openvpn.tx_pkt_cnt > 50
+  expr: http != nil && ip?.dst == '183.136.206.184' && port?.dst != 80 && port?.dst != 443
+#- name: Block Non-standard TLS Traffic
+#  action: drop
+#  log: true
+#  expr: tls != nil && port?.dst != 443
+#- name: Block Non-standard QUIC Traffic
+#  action: drop
+#  log: true
+#  expr: quic != nil && port?.dst != 443
