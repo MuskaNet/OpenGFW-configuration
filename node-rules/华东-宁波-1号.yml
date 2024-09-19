@@ -1,7 +1,7 @@
 - name: Block Non-standard HTTP Traffic
   action: drop
   log: true
-  expr: http != nil && ip?.dst == '183.136.206.184' && port?.dst != 80 && port?.dst != 443
+  expr: http != nil && ip?.dst == '183.136.206.184' && port?.dst != 80 && port?.dst != 443 && port?.dst != 8233
 #- name: Block Non-standard TLS Traffic
 #  action: drop
 #  log: true
