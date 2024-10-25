@@ -1,7 +1,11 @@
+# 说明
+# <INTERFACE_IP> 出网网卡IP
+# 多个出网口使用这个表达式: ip?.dst in ["<INTERFACE_IP_1>", "<INTERFACE_IP_2>"]
+
 - name: Block Non-standard HTTP Traffic
   action: drop
   log: true
-  expr: http != nil && ip?.dst == '183.136.206.184' && (port.dst >= 10000) && (port.dst <= 65535)
+  expr: http != nil && ip?.dst == '<INTERFACE_IP>' && (port.dst >= 10000) && (port.dst <= 65535)
 #- name: Block Non-standard TLS Traffic
 #  action: drop
 #  log: true
