@@ -1,25 +1,19 @@
 - name: Block ShadowSocks and Vmess
   action: block
   log: true
-  expr: fet != nil && fet.yes
+  expr: fet != nil && fet.yes && (port.dst >= 10000) && (port.dst <= 65535)
 
 - name: Block Trojan
   action: block
   log: true
-  expr: trojan != nil && trojan.yes
+  expr: trojan != nil && trojan.yes && (port.dst >= 10000) && (port.dst <= 65535)
 
 - name: Block Socks
   action: block
   log: true
-  expr: socks != nil && socks.yes
-
-#- name: Block SNI mismatch (Xray Reality/ShadowTLS)
-#  action: block
-#  log: true
-#  # SNI 添加 cloudflare-dns.com 防止误伤 Cloudflare 代理模式
-#  expr: tls?.req?.sni != nil && tls?.req?.sni not in ["cloudflare-dns.com"] && ip.dst not in concat(lookup(tls.req.sni), lookup(tls.req.sni, "1.1.1.1:53"))
+  expr: socks != nil && socks.yes && (port.dst >= 10000) && (port.dst <= 65535)
 
 - name: Block OpenVPN
   action: block
   log: true
-  expr: openvpn != nil && openvpn.rx_pkt_cnt + openvpn.tx_pkt_cnt > 50
+  expr: openvpn != nil && openvpn.rx_pkt_cnt + openvpn.tx_pkt_cnt > 50 && (port.dst >= 10000) && (port.dst <= 65535)
