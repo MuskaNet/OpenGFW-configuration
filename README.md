@@ -13,4 +13,4 @@ Our rules to block some connection.
 - rules.yml => 拦截规则配置
 - daemon/
   - opengfw.service => systemd 服务模板
-- node-rules/ =>，节点附加的自定义规则
+- additional-rules/ => 节点附加的自定义规则
